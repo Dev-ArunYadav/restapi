@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Item</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <h1>Edit Item</h1>
+    <a href="#" th:href="@{/items}" class="btn">Back to List</a>
+</header>
+
+<main>
+    <form th:action="@{/items/{id}(id=${item.id})}" method="post">
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}" required/>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" th:field="*{description}" required/>
+
+        <label for="image">Image URL:</label>
+        <input type="text" id="image" th:field="*{image}" required/>
+
+        <label for="url">URL:</label>
+        <input type="text" id="url" th:field="*{url}" required/>
+
+        <button type="submit" class="btn">Update Item</button>
+    </form>
+</main>
+</body>
+</html>

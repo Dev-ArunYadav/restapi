@@ -1,13 +1,13 @@
 package com.test.RestApi.service;
 
 import com.test.RestApi.entity.Api;
+import com.test.RestApi.exception.ResourceNotFoundException;
 import com.test.RestApi.repository.ApiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,35 +24,32 @@ public class CrudSerivce {
 
     // get all users
     public List<Api> getAllAPi(){
-        List<Api> apiList = new ArrayList<>();
-        for(Api api : apiRepository.findAll()){
-            apiList.add(new Api(api.getId(),api.getName(), api.getDescription(), api.getImage(), api.getUrl()));
-        }
-        return apiList;
-        /*return apiRepository.findAll().stream()
+        return apiRepository.findAll().stream()
                 .map(api -> new Api(api.getId(),api.getName(), api.getDescription(), api.getImage(), api.getUrl()))
-                .collect(Collectors.toList());*/
+                .collect(Collectors.toList());
     }
 
     // get user by id
-    public String getApiById(Long id){
-        apiRepository.findById(id);
-        return "Api retrieved successfully";
+    public Optional<Api> getApiById(Long id) {
+        return apiRepository.findById(id);
     }
 
     // update user by id
-    public String updateApiById(Long id, Api api){
-        //apiRepository.findById(id).ifPresent(apiRepository::save);
-        if(apiRepository.findById(id).isPresent()){
-            apiRepository.save(api);
-            return "Api updated successfully";
+    public String updateApiById(Api item) {
+        // Assuming findById is used to check if item exists
+        if (!apiRepository.existsById(item.getId())) {
+            throw new ResourceNotFoundException("Item with ID " + item.getId() + " not found for update");
         }
-        return "No Api found with the given id";
+        apiRepository.save(item);
+        return "Api updated successfully";
     }
 
     // delete user by id
-    public String deleteApiById(Long id){
-        apiRepository.deleteById(id);
-        return "Api deleted successfully";
+    public boolean deleteApiById(Long id){
+        if(apiRepository.findById(id).isPresent()){
+            apiRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

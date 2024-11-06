@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -26,17 +27,17 @@ public class TestApiController {
     }
 
     @GetMapping("/getUser/{id}")
-    public String getApiById(@RequestBody Long id){
+    public Optional<Api> getApiById(@RequestBody Long id){
         return crudSerivce.getApiById(id);
     }
 
     @PutMapping("/updateUser/{id}")
     public String updateApiById(@RequestBody Long id, @RequestBody Api api){
-        return crudSerivce.updateApiById(id, api);
+        return crudSerivce.updateApiById(api);
     }
 
     @DeleteMapping("/deleteUser/{id}")
-    public String deleteApiById(@RequestBody Long id){
+    public boolean deleteApiById(@RequestBody Long id){
         return crudSerivce.deleteApiById(id);
     }
 

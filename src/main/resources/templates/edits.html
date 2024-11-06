@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit API</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Edit API</h1>
+<form th:action="@{/apis/{id}(id=${api.id})}" th:object="${api}" method="post">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}"/>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <input type="text" id="description" th:field="*{description}"/>
+    </div>
+    <div>
+        <label for="image">Image URL:</label>
+        <input type="text" id="image" th:field="*{image}"/>
+    </div>
+    <div>
+        <label for="url">URL:</label>
+        <input type="text" id="url" th:field="*{url}"/>
+    </div>
+    <div>
+        <button type="submit">Update</button>
+    </div>
+</form>
+<a th:href="@{/apis}">Back to List</a>
+</body>
+</html>

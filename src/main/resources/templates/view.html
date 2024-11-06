@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View API</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1>View API</h1>
+<div>
+    <p><strong>ID:</strong> <span th:text="${api.id}"></span></p>
+    <p><strong>Name:</strong> <span th:text="${api.name}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${api.description}"></span></p>
+    <p><strong>Image:</strong> <span th:text="${api.image}"></span></p>
+    <p><strong>URL:</strong> <span th:text="${api.url}"></span></p>
+</div>
+<a th:href="@{/apis}">Back to List</a>
+<a th:href="@{/apis/{id}/edits(id=${api.id})}">Edit</a>
+<a th:href="@{/apis/{id}/delete(id=${api.id})}">Delete</a>
+</body>
+</html>

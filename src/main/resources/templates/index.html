@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Item List</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1>Item List</h1>
+    <a href="#" th:href="@{/items/new}" class="btn">Create New Item</a>
+</header>
+
+<main>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>URL</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.description}"></td>
+            <td><img th:src="@{${item.image}}" alt="Item Image" class="item-image"/></td>
+            <td><a th:href="@{${item.url}}" target="_blank">Link</a></td>
+            <td>
+                <a th:href="@{/items/{id}/edit(id=${item.id})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/items/{id}/delete(id=${item.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
